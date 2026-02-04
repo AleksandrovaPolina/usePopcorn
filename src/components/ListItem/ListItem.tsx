@@ -1,17 +1,31 @@
+import type { IMovie } from "../../types"
+import { useAppContext } from "../../utils/ContextProvider";
+import { useGetMovieDescription } from "./model";
+interface IListItemProps extends IMovie{
+  id: number;
+}
 
+export default function ListItem({poster, title, year, imdbID, id}:IListItemProps) {
+  const {activeMovie, setActiveMovie} = useAppContext();
 
-export default function ListItem() {
+  const getMovieDescriptionWrapper = useGetMovieDescription();
+
+  function getMovieDescriptionHandler(id: IListItemProps['id'], imdbID: IMovie['imdbID']){
+    setActiveMovie(id);
+    getMovieDescriptionWrapper(imdbID);
+  }
+
   return (
-   <li>
+   <li onClick={()=>getMovieDescriptionHandler(id, imdbID)} className={activeMovie === id? 'active-movie' : ''}>
               <img
-                src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"
-                alt={`movie.Title poster`}
+                src={poster}
+                alt={title}
               />
-              <h3>movie.Title</h3>
+              <h3>{title}</h3>
               <div>
                 <p>
                   <span>🗓</span>
-                  <span>2007</span>
+                  <span>{year}</span>
                 </p>
               </div>
             </li>

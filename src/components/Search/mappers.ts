@@ -1,8 +1,9 @@
-import type { IMovieAPI, IMovie } from "./types";
+import type { IMovieAPI } from "./types";
+import type { IMovie } from "../../types";
 
 export function transformMovieData(data:IMovieAPI[]): IMovie[]{
     const result = data.map((item)=>{
-        return{
+        return {
             poster : item.Poster,
             title : item.Title,
             year : item.Year,

@@ -5,11 +5,4 @@ Year : string;
 imdbID : string;
 }
 
-interface IMovie{
-    poster : string;
-    title : string;
-    year : string;
-    imdbID : string;
-}
-
-export type {IMovieAPI, IMovie}
+export type {IMovieAPI}

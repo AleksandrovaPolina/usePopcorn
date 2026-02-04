@@ -1,17 +1,19 @@
+import { useAppContext } from "../../utils/ContextProvider"
 
 
 export default function MovieCard() {
+  const {movieDescription, setMovieDescription, setActiveMovie} = useAppContext();
   return (
     <header>
-              <button className="btn-back">&larr;</button>
-              <img src="https://m.media-amazon.com/images/M/MV5BMDFhNzU4MTMtYzZmNS00ZDEzLTg2MjQtYmUzZDA1ZWU4OTkzXkEyXkFqcGdeQXVyNDQ2MTMzODA@._V1_SX300.jpg" />
+              <button className="btn-back" onClick={()=>{setMovieDescription(null); setActiveMovie(null)}}>&larr;</button>
+              <img src={movieDescription?.poster} />
               <div className="details-overview">
-                <h2>title</h2>
-                <p>16 Jul 2010 &bull; 148 min</p>
-                <p>Action, Adventure, Sci-fi</p>
+                <h2>{movieDescription?.title}</h2>
+                <p>{movieDescription?.released} &bull; {movieDescription?.runtime}</p>
+                <p>{movieDescription?.genre}</p>
                 <p>
                   <span>⭐️</span>
-                  8.9 IMDb rating
+                  {movieDescription?.imdbRating} IMDb rating
                 </p>
               </div>
     </header>

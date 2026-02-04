@@ -1,31 +1,22 @@
-import { useState } from "react";
-import { getMovies } from "./api"
-import { transformMovieData } from "./mappers";
-import { AxiosError } from "axios";
-
-export type SearchValue = string;
+import useDebounce from "../../utils/useDebounce";
+import { useGetMovies } from "./model";
 
 export default function Search() {
-  const [value, setValue] = useState<SearchValue>('');
-  async function getMoviesWrapper(e:React.ChangeEvent<HTMLInputElement>){
-    setValue(e.target.value)
-    try{
-      const data = await getMovies(value);
-      if(!data){
-        throw new Error('not found');
-      }
-      const movies = transformMovieData(data)
-      return movies;
-  } catch(error){
-    if(error instanceof AxiosError){
-      console.log(error.message)
-    }else if(error instanceof Error){
-      console.log(error.message)
-    }
-  }
-  }
-  
+  const getMoviesWrapper = useGetMovies();
+  // type OutputMovies = ReturnType<typeof useGetMovies>;
+  type OutputMovies = ReturnType<typeof getMoviesWrapper>;
+
+  const changeHandler = useDebounce<string, OutputMovies>(
+    getMoviesWrapper,
+    1000,
+  );
+
   return (
-   <input className="search" onChange={getMoviesWrapper} value={value} type="text" placeholder="Search movies..." />
-  )
+    <input
+      className="search"
+      onChange={changeHandler}
+      type="text"
+      placeholder="Search movies..."
+    />
+  );
 }
