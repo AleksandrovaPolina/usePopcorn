@@ -1,6 +1,10 @@
+import { useState } from "react";
 import Star from "./Star";
+import { useAppContext } from "../../utils/ContextProvider";
 
 export default function Stars() {
+  const [tempRating, setTempRating] = useState<number>(0);
+  const { rating } = useAppContext();
   return (
     <div
       style={{
@@ -8,8 +12,13 @@ export default function Stars() {
         alignItems: "center",
       }}
     >
-      {Array.from({ length: 10 }, () => (
-        <Star />
+      {Array.from({ length: 10 }, (_, index) => (
+        <Star
+          key={index}
+          index={index}
+          tempRating={tempRating}
+          setTempRating={setTempRating}
+        />
       ))}
       <span
         style={{
@@ -18,7 +27,7 @@ export default function Stars() {
           color: "white",
         }}
       >
-        10 / 10
+        {tempRating || rating}
       </span>
     </div>
   );

@@ -1,25 +1,26 @@
 interface IMovieDescriptionAPI {
-            Actors : string;
-            Director : string;
-            Genre : string;
-            Plot : string;
-            Released : string;
-            Runtime : string;
-            Poster : string;
-            imdbRating : string;
-            Title: string;
+  Actors: string;
+  Director: string;
+  Genre: string;
+  Plot: string;
+  Released: string;
+  Runtime: string;
+  Poster: string;
+  imdbRating: string;
+  Title: string;
 }
 
 interface IMovieDescription {
-            actors : string;
-            director : string;
-            genre : string;
-            plot : string;
-            released : string;
-            runtime : string;
-            poster : string;
-            imdbRating : string;
-            title: string;
+  actors: string;
+  director: string;
+  genre: string;
+  plot: string;
+  released: string;
+  runtime: string;
+  poster: string;
+  imdbRating: string;
+  title: string;
+  imdbID: string;
 }
 
-export type {IMovieDescriptionAPI, IMovieDescription}
+export type { IMovieDescriptionAPI, IMovieDescription };

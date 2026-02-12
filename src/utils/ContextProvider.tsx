@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import type { IMovie } from "../types";
+import type { IMovie, IFavouriteMovie } from "../types";
 import type { IMovieDescription } from "../components/ListItem/types";
 
 interface IContext {
@@ -17,8 +17,10 @@ interface IContext {
   setMovieDescription: (value: IMovieDescription | null) => void;
   activeMovie: number | null;
   setActiveMovie: (value: number | null) => void;
-  isRated: boolean;
-  setIsRated: (value: boolean) => void;
+  rating: number;
+  setRating: (value: number) => void;
+  favouriteMovies: IFavouriteMovie[];
+  setFavouriteMovies: (value: IFavouriteMovie[]) => void;
 }
 
 const Context = createContext<IContext | null>(null);
@@ -40,7 +42,10 @@ export default function ContextProvider({
   const [movieDescription, setMovieDescription] =
     useState<IContext["movieDescription"]>(null);
   const [activeMovie, setActiveMovie] = useState<IContext["activeMovie"]>(null);
-  const [isRated, setIsRated] = useState<IContext["isRated"]>(false);
+  const [rating, setRating] = useState<IContext["rating"]>(0);
+  const [favouriteMovies, setFavouriteMovies] = useState<
+    IContext["favouriteMovies"]
+  >([]);
   return (
     <Context.Provider
       value={{
@@ -58,8 +63,10 @@ export default function ContextProvider({
         setMovieDescription,
         activeMovie,
         setActiveMovie,
-        isRated,
-        setIsRated,
+        rating,
+        setRating,
+        favouriteMovies,
+        setFavouriteMovies,
       }}
     >
       {children}
